@@ -15,7 +15,6 @@ from mangum import Mangum
 from prometheus_client import Counter, Histogram, generate_latest
 from pydantic import BaseModel, Field
 
-from credittarget.common.mlflow_client import ModelRegistryClient
 from credittarget.config import AppConfig, load_config
 from credittarget.logging_utils import get_logger
 from credittarget.modeling.policy import TargetingPolicyEngine
@@ -117,8 +116,10 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         except Exception as e:
             logger.warning("standalone_model_load_failed", error=str(e))
 
-    mlflow_client = ModelRegistryClient(config.mlflow)
     try:
+        from credittarget.common.mlflow_client import ModelRegistryClient
+
+        mlflow_client = ModelRegistryClient(config.mlflow)
         app_state["prop_model"] = mlflow_client.load_model_by_alias(
             config.mlflow.propensity_model_name, "champion"
         )
@@ -132,7 +133,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
             config.mlflow.pd_model_name, "champion"
         )
     except Exception:
-        # Fallback for uninitialized registry in isolated testing
+        # Fallback for uninitialized registry in isolated testing or serverless environment
         app_state["prop_model"] = None
         app_state["pd_model"] = None
         app_state["prop_version"] = "mock"

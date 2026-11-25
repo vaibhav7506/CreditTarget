@@ -1,0 +1,28 @@
+# Ignore pyproject.toml and locks so Vercel uses lean requirements.txt
+pyproject.toml
+uv.lock
+poetry.lock
+Pipfile*
+
+# Exclude heavy Delta Lake data, MLflow databases, and plans
+artifacts/delta/**
+artifacts/mlflow/**
+artifacts/spark_plans/**
+artifacts/*.txt
+artifacts/governance/lineage.json
+data/**
+notebooks/**
+
+# Exclude tests and development tools
+tests/**
+.github/**
+.venv/**
+venv/**
+__pycache__/**
+*.pyc
+*.log
+
+# Exclude container & CI files
+Dockerfile
+docker-compose.yml
+Jenkinsfile
