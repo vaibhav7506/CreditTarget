@@ -4,7 +4,7 @@ from credittarget.serving.api import app, handler
 
 try:
     from credittarget.serving.batch_score import BatchScoreStage
-except (ImportError, ModuleNotFoundError):
+except (ImportError, ModuleNotFoundError, OSError):
     pass
 
 __all__ = ["BatchScoreStage", "app", "handler"]

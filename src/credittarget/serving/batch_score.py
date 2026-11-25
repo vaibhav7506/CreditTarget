@@ -4,7 +4,10 @@ from __future__ import annotations
 
 from typing import Any
 
-import lightgbm as _lgb  # noqa: F401 - Pin LightGBM C++ runtime bindings before MLflow
+try:
+    import lightgbm as _lgb  # noqa: F401 - Pin LightGBM C++ runtime bindings before MLflow
+except (ImportError, OSError):
+    pass
 import pyspark.sql.functions as F
 from pyspark.sql import DataFrame, SparkSession
 
