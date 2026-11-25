@@ -10,7 +10,11 @@ from credittarget.modeling.features import (
 )
 from credittarget.modeling.policy import TargetingPolicyEngine
 from credittarget.modeling.splits import get_temporal_splits, validate_temporal_ordering
-from credittarget.modeling.train import train_all_models
+
+try:
+    from credittarget.modeling.train import train_all_models
+except (ImportError, OSError):
+    pass
 
 __all__ = [
     "CATEGORICAL_FEATURES",
