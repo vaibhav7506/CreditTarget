@@ -5,8 +5,10 @@ from __future__ import annotations
 import time
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
+from pathlib import Path
 from typing import Any
 
+import cloudpickle
 import lightgbm as _lgb  # noqa: F401 - Pin LightGBM C++ runtime bindings before MLflow
 from fastapi import FastAPI, HTTPException, Response, status
 from mangum import Mangum
@@ -91,9 +93,6 @@ app_state: dict[str, Any] = {}
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """FastAPI lifespan initializing champion models and targeting policy on startup."""
-    import cloudpickle
-    from pathlib import Path
-
     config: AppConfig = app_state.get("config") or load_config("configs/local.yaml")
     policy_engine = TargetingPolicyEngine(config)
 
