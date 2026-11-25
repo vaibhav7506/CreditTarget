@@ -1,0 +1,58 @@
+name: CreditTarget CI/CD
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  validate-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up OpenJDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Toolchain & Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run Ruff Linter & Formatter Check
+        run: |
+          ruff check src tests
+          ruff format --check src tests
+
+      - name: Run Mypy Strict Type Check
+        run: |
+          mypy src
+
+      - name: Run Unit & Medallion Pipeline Tests
+        run: |
+          pytest tests -v --cov=credittarget --cov-report=term-missing
+
+      - name: Run Complete E2E Platform Pipeline
+        run: |
+          credittarget run-all --config configs/local.yaml
+
+      - name: Verify Model Risk Governance Memo & Artifacts
+        run: |
+          test -f artifacts/governance/model_risk_validation_memo.md
+          test -f artifacts/validation/validation_metrics.json
+          test -f artifacts/validation/gate_results.json
+          test -f artifacts/validation/policy_uplift.json
+          test -f artifacts/governance/lineage.json
+          test -f artifacts/spark_plans/gold_physical_plan.txt

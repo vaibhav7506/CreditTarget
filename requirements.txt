@@ -1,0 +1,16 @@
+fastapi>=0.111.0,<0.112.0
+uvicorn>=0.30.0,<0.31.0
+mangum>=0.17.0,<0.18.0
+pydantic>=2.7.0,<3.0.0
+pydantic-settings>=2.3.0,<3.0.0
+pyyaml>=6.0
+structlog>=24.1.0
+prometheus-client>=0.20.0
+numpy>=1.26.0,<2.1.0
+pandas>=2.1.0,<2.3.0
+scikit-learn>=1.4.0,<1.7.0
+lightgbm>=4.3.0
+cloudpickle>=3.0.0
+scipy>=1.12.0
+httpx>=0.27.0
+boto3>=1.34.0
