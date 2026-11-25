@@ -1,0 +1,34 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# Vercel & temp files
+.vercel/
+
+# Heavy local Delta tables and raw tracking run dirs
+artifacts/delta/
+artifacts/mlflow/*.db
+mlruns/
+.ivy2/
+
+# OS specific
+Thumbs.db
+.DS_Store

@@ -1,0 +1,19 @@
+# Fast local development profile (~24k snapshots, ~140k txns, SQLite MLflow)
+storage:
+  backend: "local"
+  base_dir: "artifacts"
+  delta_dir: "artifacts/delta"
+
+spark:
+  app_name: "CreditTarget-Local"
+  master: "local[2]"
+  shuffle_partitions: 4
+  driver_memory: "2g"
+
+datagen:
+  num_customers: 2000
+  num_months: 12
+  seed: 42
+
+mlflow:
+  tracking_uri: "sqlite:///artifacts/mlflow/mlflow.db"

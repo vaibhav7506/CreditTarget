@@ -1,0 +1,19 @@
+# Scale benchmark profile (100k customers x 12 months = 1.2M rows, ~5.5M txns)
+storage:
+  backend: "local"
+  base_dir: "artifacts_benchmark"
+  delta_dir: "artifacts_benchmark/delta"
+
+spark:
+  app_name: "CreditTarget-Benchmark"
+  master: "local[*]"
+  shuffle_partitions: 200
+  driver_memory: "8g"
+
+datagen:
+  num_customers: 100000
+  num_months: 12
+  seed: 42
+
+mlflow:
+  tracking_uri: "sqlite:///artifacts_benchmark/mlflow/mlflow.db"

@@ -1,0 +1,90 @@
+# Base configuration: shared banking constants, feature schemas, temporal splits
+app_name: "CreditTarget"
+
+storage:
+  backend: "local"
+  base_dir: "artifacts"
+  delta_dir: "artifacts/delta"
+  s3_bucket: ""
+  s3_prefix: ""
+
+spark:
+  app_name: "CreditTarget-Engine"
+  master: "local[2]"
+  shuffle_partitions: 4
+  driver_memory: "2g"
+
+policy:
+  lgd: 0.45
+  default_promo_cost: 15.0
+  max_pd_cutoff: 0.08
+  top_k_budget_fraction: 0.30
+
+splits:
+  train_months:
+    - "2025-01"
+    - "2025-02"
+    - "2025-03"
+    - "2025-04"
+    - "2025-05"
+    - "2025-06"
+    - "2025-07"
+    - "2025-08"
+  val_months:
+    - "2025-09"
+  oot_months:
+    - "2025-10"
+    - "2025-11"
+    - "2025-12"
+
+features:
+  numeric:
+    - "tenure_months"
+    - "credit_limit"
+    - "spend_30d"
+    - "spend_60d"
+    - "spend_90d"
+    - "txn_count_30d"
+    - "txn_count_90d"
+    - "spend_std_90d"
+    - "spend_velocity_ratio"
+    - "mean_util_30d"
+    - "mean_util_90d"
+    - "max_util_90d"
+    - "util_trend_30d_vs_90d"
+    - "max_dpd_90d"
+    - "dpd_events_90d"
+    - "dpd_events_30d"
+    - "severe_dpd_flag_90d"
+    - "note_count_90d"
+    - "mean_sentiment_90d"
+    - "max_complaint_severity_90d"
+    - "distress_flag_30d"
+    - "credit_intent_flag_30d"
+    - "prior_campaign_contacts"
+    - "prior_acceptance_rate"
+    - "base_interest_yield"
+    - "expected_fee_revenue"
+    - "ead_multiplier"
+    - "promo_cost"
+  categorical:
+    - "region_code"
+    - "age_band"
+    - "income_tier"
+    - "product_segment"
+  forbidden_leakage:
+    - "accepted_offer_30d"
+    - "defaulted_12m"
+    - "snapshot_date"
+    - "ingested_at_utc"
+    - "source_batch_id"
+    - "quarantined_at_utc"
+    - "rejection_reason"
+
+mlflow:
+  tracking_uri: "sqlite:///artifacts/mlflow/mlflow.db"
+  experiment_name: "credittarget"
+  propensity_model_name: "credittarget_propensity"
+  pd_model_name: "credittarget_pd"
+
+seed: 42

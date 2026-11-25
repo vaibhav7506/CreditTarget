@@ -1,0 +1,11 @@
+# Enterprise Model Risk Governance Policy (SR 11-7 Compliance Thresholds)
+governance:
+  max_psi_critical: 0.25
+  max_psi_warning: 0.10
+  max_ks_drop_pct: 15.0
+  min_oot_gini_propensity: 0.35
+  min_oot_gini_pd: 0.40
+  min_top2_decile_lift: 1.80
+  max_brier_score: 0.20
+  zero_leakage_violations: true
+  min_disparate_impact_ratio: 0.80

@@ -1,0 +1,17 @@
+# Cloud AWS S3 + remote MLflow / Databricks profile
+storage:
+  backend: "s3"
+  base_dir: "s3a://credittarget-lakehouse/artifacts"
+  delta_dir: "s3a://credittarget-lakehouse/delta"
+  s3_bucket: "credittarget-lakehouse"
+  s3_prefix: "production"
+
+spark:
+  app_name: "CreditTarget-CloudAWS"
+  master: "yarn"
+  shuffle_partitions: 200
+  driver_memory: "8g"
+
+mlflow:
+  tracking_uri: "http://mlflow-tracking.internal.bank.com:5000"
+  experiment_name: "credittarget-prod"
