@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import numpy as np
 import pandas as pd
 
-from credittarget.common.artifact_store import ArtifactStore
+if TYPE_CHECKING:
+    from credittarget.common.artifact_store import ArtifactStore
+
 from credittarget.config import AppConfig
 
 
