@@ -1,0 +1,223 @@
+{
+  "csi": {
+    "credit_limit": 0.0,
+    "max_dpd_90d": 0.0,
+    "mean_util_90d": 0.0004,
+    "spend_90d": 0.0009
+  },
+  "decile_lift_table": [
+    {
+      "avg_pd": 0.1787,
+      "count": 600,
+      "cumulative_capture_rate": 0.3649,
+      "cumulative_ev": 427492.33,
+      "decile": 1,
+      "decile_ev": 427492.33,
+      "lift": 3.65,
+      "mean_propensity": 0.9194,
+      "responders": 543,
+      "response_rate": 0.905
+    },
+    {
+      "avg_pd": 0.2287,
+      "count": 600,
+      "cumulative_capture_rate": 0.6694,
+      "cumulative_ev": 633540.25,
+      "decile": 2,
+      "decile_ev": 206047.92,
+      "lift": 3.04,
+      "mean_propensity": 0.7634,
+      "responders": 453,
+      "response_rate": 0.755
+    },
+    {
+      "avg_pd": 0.2514,
+      "count": 600,
+      "cumulative_capture_rate": 0.83,
+      "cumulative_ev": 686368.67,
+      "decile": 3,
+      "decile_ev": 52828.43,
+      "lift": 1.61,
+      "mean_propensity": 0.2205,
+      "responders": 239,
+      "response_rate": 0.3983
+    },
+    {
+      "avg_pd": 0.2257,
+      "count": 600,
+      "cumulative_capture_rate": 0.8911,
+      "cumulative_ev": 709960.35,
+      "decile": 4,
+      "decile_ev": 23591.68,
+      "lift": 0.61,
+      "mean_propensity": 0.0966,
+      "responders": 91,
+      "response_rate": 0.1517
+    },
+    {
+      "avg_pd": 0.2203,
+      "count": 600,
+      "cumulative_capture_rate": 0.9261,
+      "cumulative_ev": 715821.24,
+      "decile": 5,
+      "decile_ev": 5860.88,
+      "lift": 0.35,
+      "mean_propensity": 0.0572,
+      "responders": 52,
+      "response_rate": 0.0867
+    },
+    {
+      "avg_pd": 0.2637,
+      "count": 600,
+      "cumulative_capture_rate": 0.9442,
+      "cumulative_ev": 710121.24,
+      "decile": 6,
+      "decile_ev": -5700.0,
+      "lift": 0.18,
+      "mean_propensity": 0.0356,
+      "responders": 27,
+      "response_rate": 0.045
+    },
+    {
+      "avg_pd": 0.2622,
+      "count": 600,
+      "cumulative_capture_rate": 0.9597,
+      "cumulative_ev": 705842.81,
+      "decile": 7,
+      "decile_ev": -4278.43,
+      "lift": 0.15,
+      "mean_propensity": 0.0178,
+      "responders": 23,
+      "response_rate": 0.0383
+    },
+    {
+      "avg_pd": 0.2657,
+      "count": 600,
+      "cumulative_capture_rate": 0.9772,
+      "cumulative_ev": 698651.6,
+      "decile": 8,
+      "decile_ev": -7191.21,
+      "lift": 0.17,
+      "mean_propensity": 0.0141,
+      "responders": 26,
+      "response_rate": 0.0433
+    },
+    {
+      "avg_pd": 0.2327,
+      "count": 600,
+      "cumulative_capture_rate": 0.9933,
+      "cumulative_ev": 691277.66,
+      "decile": 9,
+      "decile_ev": -7373.95,
+      "lift": 0.16,
+      "mean_propensity": 0.0112,
+      "responders": 24,
+      "response_rate": 0.04
+    },
+    {
+      "avg_pd": 0.246,
+      "count": 600,
+      "cumulative_capture_rate": 1.0,
+      "cumulative_ev": 683455.75,
+      "decile": 10,
+      "decile_ev": -7821.9,
+      "lift": 0.07,
+      "mean_propensity": 0.0076,
+      "responders": 10,
+      "response_rate": 0.0167
+    }
+  ],
+  "disparate_impact_ratio": 0.8846,
+  "fairness": {
+    "age_band": {
+      "disparate_impact_ratio": 0.9342,
+      "groups": {
+        "18-25": {
+          "targeted_customers": 440,
+          "targeting_rate": 0.2927,
+          "total_customers": 1503
+        },
+        "26-35": {
+          "targeted_customers": 451,
+          "targeting_rate": 0.3001,
+          "total_customers": 1503
+        },
+        "36-50": {
+          "targeted_customers": 443,
+          "targeting_rate": 0.2953,
+          "total_customers": 1500
+        },
+        "51+": {
+          "targeted_customers": 468,
+          "targeting_rate": 0.3133,
+          "total_customers": 1494
+        }
+      },
+      "max_rate": 0.3133,
+      "min_rate": 0.2927
+    },
+    "overall_min_disparate_impact": 0.8846,
+    "region_code": {
+      "disparate_impact_ratio": 0.8846,
+      "groups": {
+        "EAST": {
+          "targeted_customers": 458,
+          "targeting_rate": 0.3053,
+          "total_customers": 1500
+        },
+        "NORTH": {
+          "targeted_customers": 422,
+          "targeting_rate": 0.2813,
+          "total_customers": 1500
+        },
+        "SOUTH": {
+          "targeted_customers": 445,
+          "targeting_rate": 0.2967,
+          "total_customers": 1500
+        },
+        "WEST": {
+          "targeted_customers": 477,
+          "targeting_rate": 0.318,
+          "total_customers": 1500
+        }
+      },
+      "max_rate": 0.318,
+      "min_rate": 0.2813
+    }
+  },
+  "ks_drop_pct": 13.36,
+  "leakage_violations_count": 0,
+  "oot_pd": {
+    "brier_score": 0.122,
+    "gini": 0.7084,
+    "ks_statistic": 56.89,
+    "pr_auc": 0.6535,
+    "roc_auc": 0.8542
+  },
+  "oot_propensity": {
+    "brier_score": 0.0913,
+    "gini": 0.8205,
+    "ks_statistic": 71.51,
+    "pr_auc": 0.8108,
+    "roc_auc": 0.9102
+  },
+  "psi": {
+    "pd_score": 0.0018,
+    "propensity_score": 0.0162
+  },
+  "top2_decile_lift": 3.35,
+  "val_pd": {
+    "brier_score": 0.1114,
+    "gini": 0.757,
+    "ks_statistic": 62.13,
+    "pr_auc": 0.711,
+    "roc_auc": 0.8785
+  },
+  "val_propensity": {
+    "brier_score": 0.0604,
+    "gini": 0.8962,
+    "ks_statistic": 82.54,
+    "pr_auc": 0.8625,
+    "roc_auc": 0.9481
+  }
+}

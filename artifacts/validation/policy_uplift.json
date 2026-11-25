@@ -1,0 +1,20 @@
+{
+  "avoided_credit_loss": 1628090.97,
+  "budget_capacity": 2400,
+  "naive_expected_loss": 1893057.4,
+  "naive_targeted_count": 2400,
+  "naive_total_ev": 940409.38,
+  "net_ev_uplift": 514073.13,
+  "net_ev_uplift_pct": 54.66,
+  "risk_gated_expected_loss": 264966.44,
+  "risk_gated_targeted_count": 2400,
+  "risk_gated_total_ev": 1454482.52,
+  "suppression_breakdown": {
+    "ACTIVE_DELINQUENCY": 640,
+    "BUDGET_CUTOFF": 382,
+    "NEGATIVE_EV": 837,
+    "NONE": 2400,
+    "PD_CAP_EXCEEDED": 3741
+  },
+  "total_customers_evaluated": 8000
+}

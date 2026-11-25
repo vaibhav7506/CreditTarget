@@ -1,0 +1,56 @@
+{
+  "failed_rules": 0,
+  "passed_rules": 8,
+  "rules": [
+    {
+      "message": "Max PSI 0.0162 vs critical limit 0.2500",
+      "passed": true,
+      "rule_name": "PSI_CRITICAL_THRESHOLD",
+      "severity": "CRITICAL"
+    },
+    {
+      "message": "Relative KS drop 13.36% vs max allowed 15.00%",
+      "passed": true,
+      "rule_name": "MAX_KS_DROP",
+      "severity": "CRITICAL"
+    },
+    {
+      "message": "OOT Gini 0.8205 vs min 0.3500",
+      "passed": true,
+      "rule_name": "MIN_OOT_GINI_PROPENSITY",
+      "severity": "CRITICAL"
+    },
+    {
+      "message": "OOT PD Gini 0.7084 vs min 0.4000",
+      "passed": true,
+      "rule_name": "MIN_OOT_GINI_PD",
+      "severity": "CRITICAL"
+    },
+    {
+      "message": "Top-2 Decile Lift 3.35x vs min 1.80x",
+      "passed": true,
+      "rule_name": "MIN_TOP2_DECILE_LIFT",
+      "severity": "CRITICAL"
+    },
+    {
+      "message": "Brier score 0.0913 vs max 0.2000",
+      "passed": true,
+      "rule_name": "MAX_BRIER_SCORE",
+      "severity": "CRITICAL"
+    },
+    {
+      "message": "Detected 0 leakage features",
+      "passed": true,
+      "rule_name": "ZERO_LEAKAGE_VIOLATIONS",
+      "severity": "CRITICAL"
+    },
+    {
+      "message": "Min disparate impact ratio 0.8846 vs threshold 0.8000",
+      "passed": true,
+      "rule_name": "MIN_DISPARATE_IMPACT_RATIO",
+      "severity": "WARNING"
+    }
+  ],
+  "total_rules_evaluated": 8,
+  "verdict": "PASS"
+}
