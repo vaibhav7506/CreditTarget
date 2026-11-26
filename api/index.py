@@ -14,7 +14,6 @@ if src_dir not in sys.path:
 # Ensure models directory is located relative to root
 os.chdir(root_dir)
 
-from credittarget.serving.api import app, handler
+from credittarget.serving.api import app, handler  # noqa: E402
 
-# Vercel serverless WSGI/ASGI handler
 __all__ = ["app", "handler"]

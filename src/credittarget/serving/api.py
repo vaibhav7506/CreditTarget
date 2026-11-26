@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import time
-from collections.abc import AsyncGenerator
+from collections.abc import AsyncGenerator, Callable
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
@@ -162,6 +162,22 @@ app = FastAPI(
 )
 
 
+@app.get("/", status_code=status.HTTP_200_OK)
+def root() -> dict[str, Any]:
+    """Root discovery and service status endpoint."""
+    return {
+        "service": "CreditTarget API",
+        "status": "ONLINE",
+        "version": "0.1.0",
+        "endpoints": {
+            "health": "/health",
+            "docs": "/docs",
+            "metrics": "/metrics",
+            "score": "/v1/score",
+        },
+    }
+
+
 @app.get("/health", status_code=status.HTTP_200_OK)
 def health() -> dict[str, Any]:
     """Health check endpoint exposing loaded model version metadata."""
@@ -244,4 +260,57 @@ def score_customer(input_data: CustomerFeaturesInput) -> CustomerScoreResponse:
 
 
 # AWS Lambda entry point via Mangum
-handler = Mangum(app)
+fastapi_app = app
+
+
+class VercelPathNormalizationMiddleware:
+    """ASGI Middleware normalizing request paths for Vercel serverless executions.
+
+    When Vercel processes internal rewrites (e.g. from /(.*) to /api/index.py), it sets
+    scope['path'] to '/api/index.py' while preserving the original client request path
+    in 'x-matched-path', 'x-forwarded-uri', or 'x-real-origin-path' headers.
+    This middleware extracts the true client route so FastAPI cleanly matches
+    /, /health, /docs, /metrics, /v1/score, etc.
+    """
+
+    def __init__(self, app: Any) -> None:
+        self.app = app
+
+    async def __call__(
+        self, scope: dict[str, Any], receive: Callable[..., Any], send: Callable[..., Any]
+    ) -> None:
+        if scope["type"] == "http":
+            headers = dict(scope.get("headers", []))
+
+            # Check headers for original pre-rewrite path passed by Vercel's edge routing
+            orig_path: str | None = None
+            for hdr in (b"x-matched-path", b"x-forwarded-uri", b"x-real-origin-path"):
+                if hdr in headers:
+                    val = headers[hdr].decode("latin1")
+                    if val and not val.startswith("/api/index"):
+                        orig_path = val
+                        break
+
+            current_path = orig_path if orig_path is not None else scope.get("path", "/")
+
+            # Normalize path: strip /api/index.py or /api/index prefix if present
+            if current_path.startswith("/api/index.py"):
+                current_path = current_path[len("/api/index.py") :] or "/"
+            elif current_path.startswith("/api/index"):
+                current_path = current_path[len("/api/index") :] or "/"
+
+            # Strip query string from path if present
+            if "?" in current_path:
+                current_path = current_path.split("?", 1)[0]
+
+            normalized = current_path if current_path else "/"
+            scope["path"] = normalized
+            if "raw_path" in scope:
+                scope["raw_path"] = normalized.encode("latin1")
+
+        await self.app(scope, receive, send)
+
+
+app = VercelPathNormalizationMiddleware(fastapi_app)  # type: ignore[assignment]
+handler = Mangum(fastapi_app)
+

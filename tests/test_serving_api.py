@@ -27,6 +27,16 @@ def client() -> TestClient:
         yield test_client
 
 
+def test_root_endpoint(client: TestClient) -> None:
+    """Verify / returns 200 OK and service metadata."""
+    response = client.get("/")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["service"] == "CreditTarget API"
+    assert data["status"] == "ONLINE"
+    assert "endpoints" in data
+
+
 def test_health_endpoint(client: TestClient) -> None:
     """Verify /health returns 200 OK and status HEALTHY."""
     response = client.get("/health")
@@ -97,3 +107,21 @@ def test_score_customer_validation_error(client: TestClient) -> None:
     invalid_payload = {"customer_id": "CUST_1"}
     response = client.post("/v1/score", json=invalid_payload)
     assert response.status_code == 422
+
+
+def test_vercel_path_normalization_middleware(client: TestClient) -> None:
+    """Verify ASGI middleware extracts x-matched-path and strips /api/index.py prefixes."""
+    # Simulate Vercel rewrite with x-matched-path header
+    res_health = client.get("/api/index.py", headers={"x-matched-path": "/health"})
+    assert res_health.status_code == 200
+    assert res_health.json()["status"] == "HEALTHY"
+
+    # Simulate Vercel root rewrite
+    res_root = client.get("/api/index.py", headers={"x-matched-path": "/"})
+    assert res_root.status_code == 200
+    assert res_root.json()["service"] == "CreditTarget API"
+
+    # Direct nested function path without header
+    res_direct = client.get("/api/index.py/metrics")
+    assert res_direct.status_code == 200
+    assert "credittarget_score_requests_total" in res_direct.text
