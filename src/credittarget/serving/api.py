@@ -291,9 +291,17 @@ class VercelPathNormalizationMiddleware:
                         orig_path = val
                         break
 
-            current_path = orig_path if orig_path is not None else scope.get("path", "/")
+            path_val = scope.get("path", "/")
+            if path_val.startswith("/api/index.py/") and len(path_val) > len("/api/index.py/"):
+                current_path = path_val[len("/api/index.py") :]
+            elif path_val.startswith("/api/index/") and len(path_val) > len("/api/index/"):
+                current_path = path_val[len("/api/index") :]
+            elif orig_path is not None:
+                current_path = orig_path
+            else:
+                current_path = path_val
 
-            # Normalize path: strip /api/index.py or /api/index prefix if present
+            # Strip /api/index.py or /api/index prefix if still present
             if current_path.startswith("/api/index.py"):
                 current_path = current_path[len("/api/index.py") :] or "/"
             elif current_path.startswith("/api/index"):
@@ -313,4 +321,3 @@ class VercelPathNormalizationMiddleware:
 
 app = VercelPathNormalizationMiddleware(fastapi_app)  # type: ignore[assignment]
 handler = Mangum(fastapi_app)
-
